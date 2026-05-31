@@ -10,10 +10,11 @@ class Semester(models.Model):
 
 class Professor(models.Model):
     name = models.CharField(max_length=100)
-    fachgebiet = models.CharField(max_length=100)
+    field_of_study = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
+
 
 class Student(models.Model):
     name = models.CharField(max_length=100)
@@ -22,25 +23,28 @@ class Student(models.Model):
     def __str__(self):
         return self.name
 
-class Studentenausweis(models.Model):
+
+class StudentCard(models.Model):
     student = models.OneToOneField(Student, on_delete=models.CASCADE)
-    ausweis_nr = models.CharField(max_length=50)
+    card_number = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.ausweis_nr
+        return self.card_number
 
-class Kurs(models.Model):
-    titel = models.CharField(max_length=200)
+
+class Course(models.Model):
+    title = models.CharField(max_length=200)
     professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
-    studenten = models.ManyToManyField(Student)
+    students = models.ManyToManyField(Student)
 
     def __str__(self):
-        return self.titel
+        return self.title
 
-class Kursbeschreibung(models.Model):
-    kurs = models.OneToOneField(Kurs, on_delete=models.CASCADE)
-    text = models.TextField()
+
+class CourseDescription(models.Model):
+    course = models.OneToOneField(Course, on_delete=models.CASCADE)
+    description = models.TextField()
 
     def __str__(self):
-        return f"Beschreibung: {self.kurs}"
+        return f"Description: {self.course}"
