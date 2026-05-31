@@ -28,3 +28,19 @@ class Studentenausweis(models.Model):
 
     def __str__(self):
         return self.ausweis_nr
+
+class Kurs(models.Model):
+    titel = models.CharField(max_length=200)
+    professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
+    semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
+    studenten = models.ManyToManyField(Student)
+
+    def __str__(self):
+        return self.titel
+
+class Kursbeschreibung(models.Model):
+    kurs = models.OneToOneField(Kurs, on_delete=models.CASCADE)
+    text = models.TextField()
+
+    def __str__(self):
+        return f"Beschreibung: {self.kurs}"
