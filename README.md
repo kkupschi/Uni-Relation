@@ -6,40 +6,40 @@
 
 ```mermaid
 erDiagram
-    Student ||--|| Studentenausweis : "hat (1:1)"
-    Professor ||--o{ Kurs : "unterrichtet (1:N)"
-    Semester ||--o{ Kurs : "enthaelt (1:N)"
-    Kurs ||--|| Kursbeschreibung : "hat (1:1)"
-    Student }o--o{ Kurs : "besucht (M:N)"
+    Student ||--|| StudentCard : "has (1:1)"
+    Professor ||--o{ Course : "teaches (1:N)"
+    Semester ||--o{ Course : "contains (1:N)"
+    Course ||--|| CourseDescription : "has (1:1)"
+    Student }o--o{ Course : "attends (M:N)"
 
     Student {
         int id PK
         string name
         string email
     }
-    Studentenausweis {
+    StudentCard {
         int id PK
         int student_id FK
-        string ausweis_nr
+        string card_number
     }
     Professor {
         int id PK
         string name
-        string fachgebiet
+        string field_of_study
     }
     Semester {
         int id PK
         string name
     }
-    Kurs {
+    Course {
         int id PK
         int professor_id FK
         int semester_id FK
-        string titel
+        string title
     }
-    Kursbeschreibung {
+    CourseDescription {
         int id PK
-        int kurs_id FK
-        string text
+        int course_id FK
+        string description
     }
 ```
